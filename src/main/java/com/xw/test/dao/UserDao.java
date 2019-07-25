@@ -5,10 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface UserDao
-{
+public interface UserDao {
 
-        long insertUser(User user);
+    long insertUser(User user);
 
-        List<User> selectAll();
+    List<User> selectAll();
 }

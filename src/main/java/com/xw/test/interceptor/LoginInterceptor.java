@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println(123);
-        return false;
+        System.out.println("拦截器生效");
+        return true;
     }
 
     @Override
