@@ -30,8 +30,6 @@ public class UserController {
     @RequestMapping("/showAll")
     @ResponseBody
     private List<User> showAll() {
-        System.out.println(111);
-        RedisUtil.set("1",1);
         List<User> users = userService.showAll();
         for (User u : users) {
             log.info(u);
