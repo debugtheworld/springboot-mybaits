@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.*;
 
@@ -684,8 +685,10 @@ public class RedisUtil {
         try (Jedis jedis = getJedis()) {
             String script = "if redis.call('setnx', KEYS[1], ARGV[1]) == 1 then redis.call('pexpire', KEYS[1], ARGV[2]) return 1 else return 0 end";
             Object result = jedis.eval(script, Collections.singletonList(lockKey), Arrays.asList(requestId, String.valueOf(expireTime)));
-            //jedis 3.x不支持五个参数的set
-            //String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+            /*SetParams setParams = new SetParams();
+            setParams.nx();
+            setParams.px(expireTime);
+            String result = jedis.set(lockKey, requestId, setParams);*/
 
             if (LOCK_SUCCESS.equals(result)) {
                 return true;
